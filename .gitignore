@@ -1,0 +1,39 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Executables
+kinematics
+*.exe
+*.out
+*.app
+
+# Build directory (where CMake does its work)
+build/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS system files
+.DS_Store
