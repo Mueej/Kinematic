@@ -28,6 +28,8 @@ kinematics
 
 # Build directory (where CMake does its work)
 build/
+run.sh
+app
 
 # IDEs and Editors
 .vscode/
