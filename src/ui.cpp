@@ -64,7 +64,7 @@ void UI::Show() {
     float plotWidth = windowWidth * 0.95f;
     ImGui::SetCursorPosX((windowWidth - plotWidth) * 0.5f);
     
-    if (ImPlot::BeginSubplots("##Graphs", 1, 3, ImVec2(plotWidth, 200))) {
+    if (ImPlot::BeginSubplots("##Graphs", 1, 4, ImVec2(plotWidth, 200))) {
         
         if (ImPlot::BeginPlot("Speed")) {
             ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_None);
@@ -78,6 +78,13 @@ void UI::Show() {
             ImPlot::SetupAxesLimits(0, HISTORY_SIZE, -50.0, 50.0, ImPlotCond_Always);
             ImPlot::PlotLine("Acc X", accXHistory, HISTORY_SIZE, 1.0, 0.0, { ImPlotProp_Offset, historyOffset });
             ImPlot::PlotLine("Acc Y", accYHistory, HISTORY_SIZE, 1.0, 0.0, { ImPlotProp_Offset, historyOffset });
+            ImPlot::EndPlot();
+        }
+
+        if (ImPlot::BeginPlot("Charge")) {
+            ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_None);
+            ImPlot::SetupAxesLimits(0, HISTORY_SIZE, 0.0, 100.0, ImPlotCond_Always);
+            ImPlot::PlotLine("Charge", chargeHistory, HISTORY_SIZE, 1.0, 0.0, { ImPlotProp_Offset, historyOffset });
             ImPlot::EndPlot();
         }
 
