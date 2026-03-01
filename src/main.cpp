@@ -1,9 +1,6 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-#include"imgui.h"
-#include"imgui_impl_glfw.h"
-#include"imgui_impl_opengl3.h"
 
 #include "elements.hpp"
 #include "shader.hpp"
@@ -83,34 +80,19 @@ int main() {
     int offsetLoc = glGetUniformLocation(shaderProgram.ID, "offset");
     int camMatrixLoc = glGetUniformLocation(shaderProgram.ID, "camMatrix");
 
-    float fpstime = 0.0f;
-    int cnt = 0;
-    int fps_count = 0;
-
-    // FPS History for graph
-    const int FPS_HISTORY_SIZE = 100;
-    float fpsHistory[FPS_HISTORY_SIZE] = { 0 };
-    int historyOffset = 0;
-
     while (!glfwWindowShouldClose(window))
 	{
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        fpstime += deltaTime;
-        cnt++;
-
-        if(fpstime >= 1.0f) {
-            // std::cout << "FPS: " << cnt << std::endl;
-            fpstime = 0.0f;
-            fps_count = cnt;
-            cnt = 0;
-
-            // Update history buffer
-            fpsHistory[historyOffset] = (float)fps_count;
-            historyOffset = (historyOffset + 1) % FPS_HISTORY_SIZE;
-        }
+        // Simulate telemetry data
+        float speed = 60.0f + 20.0f * sin(currentFrame);
+        float accX = 20.0f * cos(currentFrame * 2.0f);
+        float accY = 10.0f * sin(currentFrame * 1.5f);
+        float charge = 100.0f - fmod(currentFrame * 5.0f, 100.0f);
+        
+        ui.UpdateTelemetry(speed, accX, accY, charge);
 
 		glClearColor(0.9f, 0.9f, 0.98f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -132,7 +114,7 @@ int main() {
         elements.drawCar(shaderProgram, offsetLoc, camMatrixLoc, colorLoc);
         vao3.Unbind();
 
-        ui.Show(fps_count, size, fpsHistory, FPS_HISTORY_SIZE, historyOffset);
+        ui.Show();
         ui.Render();
 
 

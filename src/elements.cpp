@@ -66,7 +66,7 @@ void Elements::drawGrid(Shader& shader, int offsetLoc, int camMatrixLoc, int col
 
 void Elements::drawCone(Shader& shader, int offsetLoc, int camMatrixLoc, int colorLoc) {
     for(auto& t : coneCoordinates) {
-        glUniform3f(offsetLoc, std::get<0>(t) + posX, std::get<1>(t), std::get<2>(t) + posZ);
+        glUniform3f(offsetLoc, std::get<0>(t) + posX, std::get<1>(t) - 0.01f, std::get<2>(t) + posZ);
 
         if(std::get<3>(t)=='y')      glUniform3f(colorLoc, 0.9f, 0.7f, 0.0f);
         else if(std::get<3>(t)=='b') glUniform3f(colorLoc, 0.0f, 0.0f, 1.0f);
