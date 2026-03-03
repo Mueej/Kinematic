@@ -86,7 +86,6 @@ int main() {
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        // Simulate telemetry data
         float speed = 60.0f + 20.0f * sin(currentFrame);
         float accX = 20.0f * cos(currentFrame * 2.0f);
         float accY = 10.0f * sin(currentFrame * 1.5f);
@@ -94,7 +93,7 @@ int main() {
         
         ui.UpdateTelemetry(speed, accX, accY, charge);
 
-		glClearColor(0.9f, 0.9f, 0.98f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ui.NewFrame();
