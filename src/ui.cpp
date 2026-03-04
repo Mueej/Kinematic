@@ -27,7 +27,7 @@ void UI::UpdateTelemetry(float speed, float accX, float accY, float charge) {
 }
 
 void UI::Show() {
-    
+
     ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));
     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(172.0f/255.0f, 211.0f/255.0f, 230.0f/255.0f, 1.0f));
@@ -49,9 +49,9 @@ void UI::Show() {
     const char* buttons[] = {"cmd 1", "cmd 2", "cmd 3", "cmd 4", "cmd 5", "cmd 6", "cmd 7", "cmd 8"};
     int numButtons = 8;
     
-    ImVec2 buttonSize(100.0f, 30.0f); // Make buttons larger
+    ImVec2 buttonSize(100.0f, 30.0f); 
     ImGuiWindowFlags buttonWindowFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBackground;
-    float buttonGap = 20.0f; // Increased gap specific to buttons
+    float buttonGap = 20.0f; 
     float currentButtonX = windowWidth * 0.5f - ((buttonSize.x * numButtons + buttonGap * (numButtons - 1)) * 0.5f);
     
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
@@ -73,7 +73,9 @@ void UI::Show() {
             ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
         }
         
-        if (ImGui::Button(buttons[i], buttonSize)) {}
+        if (ImGui::Button(buttons[i], buttonSize)) {
+            // Button functionality
+        }
         
         if (hovered) {
             ImGui::PopStyleColor();
@@ -139,6 +141,7 @@ void UI::Show() {
         ImPlot::EndPlot();
     }
     ImGui::End();
+
     ImGui::PopStyleVar();
     ImGui::PopStyleColor(9);
 }

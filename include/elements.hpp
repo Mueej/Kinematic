@@ -11,27 +11,42 @@
 #include<vector>
 #include <tuple>
 
+#include <string>
+
 #include"shader.hpp"
 
 class Elements {
 public:
     float axes[12];
-    float cone[24];
-    float car[24];
+    std::vector<float> coneSTL;
+    std::vector<float> carSTL;
 
-    GLuint Indices[36] = {
-        0, 1, 2, 
-        0, 2, 3, 
-        4, 5, 6, 
-        4, 6, 7,
+    GLfloat lightVertices[24] =
+    { 
+        -0.1f, -0.1f,  0.1f,
+        -0.1f, -0.1f, -0.1f,
+        0.1f, -0.1f, -0.1f,
+        0.1f, -0.1f,  0.1f,
+        -0.1f,  0.1f,  0.1f,
+        -0.1f,  0.1f, -0.1f,
+        0.1f,  0.1f, -0.1f,
+        0.1f,  0.1f,  0.1f
+    };
+
+    GLuint lightIndices[36] =
+    {
+        0, 1, 2,
+        0, 2, 3,
         0, 4, 7,
-        0, 3, 7, 
-        3, 2, 7,
-        7, 6, 2,
-        1, 5, 6, 
-        1, 2, 6, 
-        0, 5, 1, 
-        0, 4, 5
+        0, 7, 3,
+        3, 7, 6,
+        3, 6, 2,
+        2, 6, 5,
+        2, 5, 1,
+        1, 5, 4,
+        1, 4, 0,
+        4, 5, 6,
+        4, 6, 7
     };
 
     float carWidth = 2.0f, carHeight = 2.0f, carLength = 3.0f;
@@ -47,12 +62,22 @@ public:
 
     std::vector<std::tuple<float, float, float, char>> coneCoordinates;
 
-    Elements(int num, float height, float width, float diff);
-    void drawGrid(Shader& shader, int offsetLoc, int camMatrixLoc, int colorLoc);
-    void drawCone(Shader& shader, int offsetLoc, int camMatrixLoc, int colorLoc);
-    void drawCar(Shader& shader, int offsetLoc, int camMatrixLoc, int colorLoc);
-    void clamp();
+    glm::vec3 carScale = glm::vec3(1.0f, 1.0f, 1.0f);
+    glm::vec3 carRotation = glm::vec3(0.0f, 0.0f, 0.0f); // Euler angles (x, y, z)
+    glm::vec3 carPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+
+    glm::vec3 coneScale = glm::vec3(1.0f, 1.0f, 1.0f);
+    glm::vec3 coneRotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 conePosition = glm::vec3(0.0f, 0.0f, 0.0f);
+
+    Elements(int num, float height, float width, float diff, const std::string& conePath, const std::string& carPath);
+    void drawGrid(Shader& shader, int offsetLoc, int modelLoc, int colorLoc);
+    void drawCone(Shader& shader, int offsetLoc, int modelLoc, int colorLoc);
+    void drawCar(Shader& shader, int offsetLoc, int modelLoc, int colorLoc);
+    void drawLight(Shader& shader, int modelLoc, int colorLoc, glm::vec3 lightPos);
     
+    std::vector<float> loadSTL(const std::string& filepath);
+    void clamp();
 };
 
 #endif
